@@ -8,6 +8,10 @@ install.packages('devtools')
 
 library(devtools)
 
+install.packages('nlme')
+
+library(nlme)
+
 install_github("FlorisRoelofs/polya")
 
 library(Polya)

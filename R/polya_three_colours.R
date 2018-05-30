@@ -1,6 +1,6 @@
 # 3 colours
 
-polya_three_colourss = function(n_experiments){
+polya_three_colours = function(n_experiments){
   #n_experiments = 100
   
   for (j in 1:n_experiments){

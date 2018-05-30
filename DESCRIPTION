@@ -1,0 +1,17 @@
+Package: Polya
+Version: 0.1
+Date: 2018-05-30
+Title: Simulate Polya
+Authors@R: c(person("F.J.F.W. Roelofs", "Developer", role = c("aut", "cre"),
+                     email = "floris.roelofs@student.uva.nl"))
+Author: F.J.F.W. Roelofs [aut, cre]
+Maintainer: F.J.F.W. Roelofs <floris.roelofs@student.uva.nl>
+Depends: R (>= 3.1.0), nlme
+Suggests: MASS
+Description: To fire it up type polya()
+License: GPL (>= 2)
+URL: https://www.r-project.org
+BugReports: IDK
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1

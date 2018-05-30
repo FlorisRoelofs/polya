@@ -351,7 +351,7 @@ polya = function(){
 
     observeEvent(input$start, {
       X = sample(c(2:5),1)                      # generate random number between 2 and 5 to generate previous models, plot model based on number
-      print(X)
+      
       if (X == 2){
         output$plot6 = renderPlot({
           matplot(fraction_blue2(),ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1),type = 'l',lty = 1, lwd = 2)

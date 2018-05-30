@@ -1,16 +1,16 @@
 # Users guide
 
-This guide will explain how to open and to use this package.
+This guide will explain how to open and use this package.
 
 First, in order to get it running, use the following codes one at the time inside the console in R:
 
-  install.packages('devtools')
+install.packages('devtools')
 
-  library(devtools)
+library(devtools)
 
-  install_github("FlorisRoelofs/polya")
+install_github("FlorisRoelofs/polya")
 
-  library(Polya)
+library(Polya)
 
 Now you have installed the package.
 
@@ -51,14 +51,3 @@ This will run the polya model where all functions 2-6 are incorperated. N stands
 
 8. polya_three_colours(N)
 This will run the standard polya model where there are three colours inside the urn (blue, red and white). N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
-
-
-
-
-
-
-
-
-
-
-

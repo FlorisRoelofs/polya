@@ -24,8 +24,41 @@ Based on this simple learning scheme, how does your skill develop? On the long t
 
 #######################################################################
 
-1. To open the simulation, simply run the polya function by typing 'polya()' inside the console
+This package contains a total of 8 functions:
+
+1. polya() : 
+To open the simulation, simply run the polya function by typing 'polya()' inside the console
 
 Next to this simulation, there are also small individual functions of the polya model:
 
-2. 
+2. polya_red_blue(N):
+This will run the standard polya model where N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
+
+3. polya_red_blue_blue(N):
+This will run the polya model where two blue balls will be added and only one red ball. N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
+
+4. polya_streak(N):
+This will run the polya model where any streak of the same 3 couloured balls will be doubled in the urn. N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
+
+5. polya_life_events(N):
+This will run the polya model where at the half point of the amount of experiments, 50% of all previous picks become either red or blue. This will be random. N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
+
+6. polya_decay(N)
+This will run the polya model where after each 10 picks, 5 random balls will be deleted from the urn. N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
+
+7. polya_all(N)
+This will run the polya model where all functions 2-6 are incorperated. N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
+
+8. polya_three_colours(N)
+This will run the standard polya model where there are three colours inside the urn (blue, red and white). N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
+
+
+
+
+
+
+
+
+
+
+

@@ -7,8 +7,8 @@ Authors@R: c(person("F.J.F.W. Roelofs", "Developer", role = c("aut", "cre"),
 Author: F.J.F.W. Roelofs [aut, cre]
 Maintainer: F.J.F.W. Roelofs <floris.roelofs@student.uva.nl>
 Depends: R (>= 3.1.0), nlme
-Suggests: MASS
-Description: To fire it up type polya()
+Suggests: shinydashboard, shiny, ggplot
+Description: read the README.md file
 License: GPL (>= 2)
 URL: https://www.r-project.org
 BugReports: IDK

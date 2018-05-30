@@ -2,7 +2,7 @@
 
 This guide will explain how to open and use this package.
 
-First, in order to get it running, use the following codes one at the time inside the console in R:
+First, in order to get it running, use the following codes one at the time inside the R console:
 
 install.packages('devtools')
 

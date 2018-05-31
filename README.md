@@ -37,7 +37,7 @@ install.packages('plotrix')
 
 library(plotrix)
 
-############################### INTRODUCTION #########################################
+################################# INTRODUCTION #######################################
 
 In this application we are trying to simulate a model known as the Polya urn model. In this model, objects of real interest (such as atoms, people, cars, etc.) are represented as coloured balls in an urn or other container. This urn contains x red and y blue balls; one ball is drawn randomly from the urn and its colour observed; it is then returned in the urn, and an additional ball of the same colour is added to the urn, and the selection process is repeated. Thus, every time a ball is observed, an additional ball of the same colour is added to the urn. Hence, the number of total marbles in the urn grows. Questions of interest are the evolution of the urn population and the sequence of colours of the balls drawn out. 
 
@@ -45,12 +45,12 @@ This model has many applications. Here, the balls represent previous memories an
 
 Based on this simple learning scheme, how does your skill develop? On the long term, will you be able to learn to play the song and, what factors will influence this development. That is exactly what we will try to figure out with this simulation.
 
-############################### FUNCTIONS ############################################
+################################# FUNCTIONS ##########################################
 
 This package contains a total of 8 functions:
 
 1. polya() : 
-To open the simulation, simply run the polya function by typing 'polya()' inside the console
+To run the simulation, simply run the polya function by typing 'polya()' inside the console
 
 Next to this simulation, there are also small individual functions of the polya model:
 
@@ -74,3 +74,9 @@ This will run the polya model where all functions 2-6 are incorperated. N stands
 
 8. polya_three_colours(N)
 This will run the standard polya model where there are three colours inside the urn (blue, red and white). N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
+
+####################### SHORTCOMINGS (FUTURE IDEAS) ##################################
+
+################################## BUGS ##############################################
+
+############################### EASTEREGG ############################################

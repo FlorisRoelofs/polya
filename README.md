@@ -4,13 +4,13 @@ This guide will explain how to open and use this package. First, in order to get
 
 install.packages('devtools')
 
-library(devtools)
-
 install.packages('nlme')
 
-library(nlme)
-
 install_github("FlorisRoelofs/polya")
+
+library(devtools)
+
+library(nlme)
 
 library(Polya)
 
@@ -22,19 +22,19 @@ library(Polya)
 In order to run the simulation, be sure to have shiny, shiny dashboard, ggplot and plotrix installed.
 If you haven't, please do so by running the following code:
 
-install.packages('shiny')     
+install.packages('shiny')             
 
-library(shiny)         
-
-install.packages('shinydashboard')
-
-library(shinydashboard)            
+install.packages('shinydashboard')           
 
 install.packages('ggplot2')    
 
-library(ggplot2)
-
 install.packages('plotrix')
+
+library(shiny) 
+
+library(shinydashboard) 
+
+library(ggplot2)
 
 library(plotrix)
 

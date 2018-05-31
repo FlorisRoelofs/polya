@@ -8,7 +8,7 @@ polya = function(){
   library(shinydashboard)      # Load shiny dashboard
   library(shiny)               # Load shiny
   library(ggplot2)             # Load ggplot2
-  #install.packages('plotrix')  # For easter egg
+  install.packages('plotrix')  # For easter egg
   library(plotrix)             # For easter egg
   
   ui <- dashboardPage( skin = 'green',                                                                  # creat UI
@@ -649,8 +649,7 @@ polya = function(){
               Never gonna let you down','<br>','
               Never gonna run around and desert you','<br>','
               Never gonna make you cry')} else {
-                paste('Funny fact to leave you with: I was born on the same date as Hulk Hogan, only 39 years later. Pretty sweet right?',               # Hint at the easter eggs
-                      '<br>','<br>','Hey... You know what would be cool, if my birthday could be used as input...','<br>','<br>','Even cooler if its in all the 5 scenarios...') 
+                paste('This ending could be better...') 
       }
     })
     }

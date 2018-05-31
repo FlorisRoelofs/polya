@@ -85,4 +85,4 @@ One bug users might run into, is that a density plot can't be generated if 'Amou
 
 ############################### EASTEREGG ############################################
 
-If the user knows my birthday and puts the day, month and year in the 'Starting Urn Size', 'Amount of Picks' and 'Amount of Experiments' respectively, a nice plot will show up.
+If the user knows my birthday and puts the day, month and year (without the 19..) in the 'Starting Urn Size', 'Amount of Picks' and 'Amount of Experiments' respectively, a nice plot will show up.

@@ -61,7 +61,7 @@ This will run the standard polya model where N stands for the amount of experime
 This will run the polya model where two blue balls will be added and only one red ball. N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
 
 4. polya_streak(N):
-This will run the polya model where any streak of the same 3 couloured balls will be doubled in the urn. N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
+This will run the polya model where any streak of the same 3 coloured balls will be doubled in the urn. N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
 
 5. polya_life_events(N):
 This will run the polya model where at the half point of the amount of experiments, 50% of all previous picks become either red or blue. This will be random. N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
@@ -70,13 +70,19 @@ This will run the polya model where at the half point of the amount of experimen
 This will run the polya model where after each 10 picks, 5 random balls will be deleted from the urn. N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
 
 7. polya_all(N)
-This will run the polya model where all functions 2-6 are incorperated. N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
+This will run the polya model where all functions 2-6 are incorporated. N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
 
 8. polya_three_colours(N)
 This will run the standard polya model where there are three colours inside the urn (blue, red and white). N stands for the amount of experiments. The output will be a plot of the proportion blue balls over 200 picks.
 
 ####################### SHORTCOMINGS (FUTURE IDEAS) ##################################
 
+One shortcoming is inside the testing tab, when the user is asked to press the generate button, only models from the previous scenarios can be generated. Therefore, in order for it to work, users must have set the parameters in such a way that they characterize their specific scenario. Otherwise it is hard to do this test. Also, since the 'generate' button will generate randomly one of the previous models, it might happen that one model is generated a few times in a row, resulting in no change at all within the plot. The user should keep pressing 'generate' until a new model appears.
+
 ################################## BUGS ##############################################
 
+One bug users might run into, is that a density plot can't be generated if 'Amount of experiments' is set to 1. If 'Amount of experiments' will be set higher this problem will dissolve itself.
+
 ############################### EASTEREGG ############################################
+
+If the user knows my birthday and puts the day, month and year in the 'Starting Urn Size', 'Amount of Picks' and 'Amount of Experiments' respectively, a nice plot will show up.

@@ -8,7 +8,6 @@ polya = function(){
   library(shinydashboard)      # Load shiny dashboard
   library(shiny)               # Load shiny
   library(ggplot2)             # Load ggplot2
-  install.packages('plotrix')  # For easter egg
   library(plotrix)             # For easter egg
   
   ui <- dashboardPage( skin = 'green',                                                                  # creat UI
@@ -395,7 +394,7 @@ polya = function(){
           polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
         }
         cake_colour="#FF3399"
-        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
+        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday!", xlab="",ylab="") # set up plot and title
         draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
         draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)                        
         rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
@@ -438,7 +437,7 @@ polya = function(){
           polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
         }
         cake_colour="#FF3399"
-        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
+        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday!", xlab="",ylab="") # set up plot and title
         draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
         draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)                        
         rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
@@ -478,7 +477,7 @@ polya = function(){
           polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
         }
         cake_colour="#FF3399"
-        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
+        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday!", xlab="",ylab="") # set up plot and title
         draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
         draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)                        
         rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
@@ -519,7 +518,7 @@ polya = function(){
           polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
         }
         cake_colour="#FF3399"
-        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
+        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday!", xlab="",ylab="") # set up plot and title
         draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
         draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)                        
         rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
@@ -558,7 +557,7 @@ polya = function(){
           polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
         }
         cake_colour="#FF3399"
-        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
+        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday!", xlab="",ylab="") # set up plot and title
         draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
         draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)                        
         rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles

@@ -14,9 +14,7 @@ install_github("FlorisRoelofs/polya")
 
 library(Polya)
 
-######
-
-To directly run the simulation type and run: polya()
+- To directly run the simulation type and run: polya()
 
 ############################### EXTRA PACKAGES NEEDED ###################################
 

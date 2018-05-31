@@ -23,17 +23,17 @@ Now you have installed the package.
 In order to run the simulation, be sure to have shiny, shiny dashboard and ggplot installed.
 If you haven't, please do so by running the following code:
 
-install.packages('shiny')          # Instal shiny
+install.packages('shiny')     
 
-library(shiny)                     # Load shiny
+library(shiny)         
 
-install.packages('shinydashboard') # Instal shiny dashboard
+install.packages('shinydashboard')
 
-library(shinydashboard)            # Load shiny dashboard
+library(shinydashboard)            
 
-install.packages('ggplot2')        # Instal ggplot
+install.packages('ggplot2')    
 
-library(ggplot2)                   # Load ggplot2
+library(ggplot2)               
 
 ############################### INTRODUCTION #########################################
 

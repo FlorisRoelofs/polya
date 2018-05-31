@@ -8,6 +8,7 @@ polya = function(){
   library(shinydashboard)      # Load shiny dashboard
   library(shiny)               # Load shiny
   library(ggplot2)             # Load ggplot2
+  #install.packages('plotrix')  # For easter egg
   library(plotrix)             # For easter egg
   
   ui <- dashboardPage( skin = 'green',                                                                  # creat UI
@@ -154,7 +155,7 @@ polya = function(){
                              ))
                            ),
                            
-                           tabItem(tabName = 'zeven', fluidRow( h1('Thank you for playing'),br(),('Funny fact to leave you with: I was born on the same date as Hulk Hogan, only 39 years later. Pretty sweet right?'),br(),br(),         # provide title of the final page and easteregg hint
+                           tabItem(tabName = 'zeven', fluidRow( h1('Thank you for playing'),br(),br(),         # provide title of the final page and easteregg hint
                                                                 htmlOutput('summary7')                    # set variable name for summary0 text box
                            ))
                            
@@ -590,7 +591,7 @@ polya = function(){
     
     ###################### Output 7 ######################
     
-    output$summary7 = renderText({                       # Some nice rickrollin' text
+    output$summary7 = renderText({                       # Some nice rickrollin' text and long statements for the easter egg if all 5 scenarios are correct
       if (input$urn_size == 11 & input$n_picks == 8 & input$n_experiments == 92 & input$urn_size2 == 11 & input$n_picks2 == 8 & input$n_experiments2 == 92 & input$urn_size3 == 11 & input$n_picks3 == 8 & input$n_experiments3 == 92 & input$urn_size4 == 11 & input$n_picks4 == 8 & input$n_experiments4 == 92 & input$urn_size5 == 11 & input$n_picks5 == 8 & input$n_experiments5 == 92){
         paste('Were no strangers to love','<br>','
               You know the rules and so do I','<br>','
@@ -648,7 +649,8 @@ polya = function(){
               Never gonna let you down','<br>','
               Never gonna run around and desert you','<br>','
               Never gonna make you cry')} else {
-                paste('You know what would be cool, if my birthday could be used as input...','<br>','Even cooler if its in all the 5 scenarios...') 
+                paste('Funny fact to leave you with: I was born on the same date as Hulk Hogan, only 39 years later. Pretty sweet right?',               # Hint at the easter eggs
+                      '<br>','<br>','Hey... You know what would be cool, if my birthday could be used as input...','<br>','<br>','Even cooler if its in all the 5 scenarios...') 
       }
     })
     }

@@ -1,13 +1,15 @@
-#' polya urn function, call with polya()
+#' polya urn function, call with polya()    # Creating app
 #' @param idk
 #' @return value
 #' @export
 
 polya = function(){
 
-  library(shinydashboard)      # Load shiny dashboard
-  library(shiny)               # Load shiny
-  library(ggplot2)             # Load ggplot2
+  library(shinydashboard)       # Load shiny dashboard
+  library(shiny)                # Load shiny
+  library(ggplot2)              # Load ggplot2
+  #install.packages('plotrix')  # For easter egg
+  #library(plotrix)             # For easter egg
 
   ui <- dashboardPage( skin = 'green',                                                                  # creat UI
                        dashboardHeader(title = 'Tracing Memory Traces',titleWidth = 230),               # set main title and size
@@ -47,8 +49,7 @@ polya = function(){
                                         box(actionButton("check1", "Check")),             # create validation check button
                                         textOutput('feedback1'),                          # create variable feedback text output
                                         htmlOutput('room')),                              # create empty room in order to fully be able to see all the answers from drop menu
-
-                               tabPanel("Plot",plotOutput('plot1'),"",plotOutput('hist1')))    # create plot tab with figure and histogram
+                               tabPanel("Plot",plotOutput('plot1'),"",plotOutput('hist1')))    # create plot tab with figure and histogram      ## Most of this will be repeated in code
                            )),
 
 
@@ -67,7 +68,6 @@ polya = function(){
                                         box(actionButton("check2", "Check")),                  # set validation button, feedback text and room for dropdown menu
                                         textOutput('feedback2'),
                                         htmlOutput('room2')),
-
                                tabPanel("Plot",plotOutput('plot2'),"",plotOutput('hist2')))    # create plot tab with figure and histogram
                            )),
 
@@ -88,8 +88,6 @@ polya = function(){
                                         box(actionButton("check3", "Check")),                                       # set validation button, feedback text and room for dropdown menu
                                         textOutput('feedback3'),
                                         htmlOutput('room3')),
-
-
                                tabPanel("Plot",plotOutput('plot3'),"",plotOutput('hist3')))                         # create plot tab with figure and histogram
                            )),
 
@@ -114,8 +112,6 @@ polya = function(){
                                         box(actionButton("check4", "Check")),                                       # set validation button, feedback text and room for dropdown menu
                                         textOutput('feedback4'),
                                         htmlOutput('room4')),
-
-
                                tabPanel("Plot",plotOutput('plot4'),"",plotOutput('hist4')))                         # create plot tab with figure and histogram
                            )),
 
@@ -136,10 +132,6 @@ polya = function(){
                                         box(actionButton("check5", "Check")),                                       # set validation button, feedback text and room for dropdown menu
                                         textOutput('feedback5'),
                                         htmlOutput('room5')),
-
-
-
-
                                tabPanel("Plot",plotOutput('plot5'),"",plotOutput('hist5')))                         # create plot tab with figure and histogra
                            )),
 
@@ -176,7 +168,7 @@ polya = function(){
 
     # Plot for standard model
 
-    fraction_blue = reactive({                                  # create reactive function responsive to users input
+    fraction_blue = reactive({                                # create reactive function responsive to users input
 
       df_fractions = data.frame()                             # initialize dataframe for collecting proportions blue balls per experiment
       for( j in 1:input$n_experiments){                       # loop over the amount of experiments
@@ -190,7 +182,6 @@ polya = function(){
         }
         df_fractions[1:length(fraction_blue_),j] = fraction_blue_ # put proportion balls per experiment in each colomn of the dataframe
       }
-      #  }
       return(df_fractions)                                      # return dataframe of all proportions over all experiments to plot later
     })
 
@@ -253,16 +244,16 @@ polya = function(){
         urn = sample(rep(c('blue', 'red'), each = input$urn_size3/2))
         fraction_blue_ = vector()
         for (i in 1:input$n_picks3){
-          pick = sample(urn,1)                                # pick a random ball
-          urn[length(urn)+1] = pick                           # add this ball to urn
+          pick = sample(urn,1)                                                # pick a random ball
+          urn[length(urn)+1] = pick                                           # add this ball to urn
           if (identical(tail(urn,input$streak),rep(pick, input$streak))){     # if last [N input] picks are equal = put in [N input] extra
             urn[length(urn)+1:input$extra_balls3] = pick
           }
-          fraction_blue_[i] = sum(urn == 'blue')/length(urn)  # calculate fraction blue and store
+          fraction_blue_[i] = sum(urn == 'blue')/length(urn)                  # calculate fraction blue and store
         }
         df_fractions[1:length(fraction_blue_),j] = fraction_blue_
       }
-      return(df_fractions)                                    # return dataframe of all proportions over all experiments to plot later
+      return(df_fractions)                                                    # return dataframe of all proportions over all experiments to plot later
     })
 
     observeEvent(input$check3, {           # Check question 3
@@ -282,24 +273,24 @@ polya = function(){
     fraction_blue4 = reactive({
 
       df_fractions = data.frame()
-      drastic_trauma = as.numeric(input$drastic_trauma)                # set input as numeric value
+      drastic_trauma = as.numeric(input$drastic_trauma)                      # set input as numeric value
 
       for( j in 1:input$n_experiments4){
 
         urn = sample(rep(c('blue', 'red'), each = input$urn_size4/2))
         fraction_blue_ = vector()
         for (i in 1:input$n_picks4){
-          pick = sample(urn,1)                                # pick a random ball
-          urn[length(urn)+1] = pick                           # add this ball to urn
-          fraction_blue_[i] = sum(urn == 'blue')/length(urn)  # calculate fraction blue and store
+          pick = sample(urn,1)                                               # pick a random ball
+          urn[length(urn)+1] = pick                                          # add this ball to urn
+          fraction_blue_[i] = sum(urn == 'blue')/length(urn)                 # calculate fraction blue and store
           if (i == input$occ_trauma){
             urn = urn[1:(length(urn) - (length(urn)/100)*drastic_trauma)]    # delete [input] percentage from urn
-            sample(urn)                                       # shuffle urn
+            sample(urn)                                                      # shuffle urn
           }
         }
         df_fractions[1:length(fraction_blue_),j] = fraction_blue_
       }
-      return(df_fractions)                                    # return dataframe of all proportions over all experiments to plot later
+      return(df_fractions)                                                   # return dataframe of all proportions over all experiments to plot later
     })
 
     observeEvent(input$check4, {           # Check question 4
@@ -382,18 +373,45 @@ polya = function(){
 
     ################################### Create all output ##################################################################
 
-    # Output 0
-    output$summary0 = renderText({         # Summary introduction
+    ###################### Output 0 ######################
+
+    output$summary0 = renderText({       # Summary introduction
       paste('In this application we are trying to simulate a model known as the Polya urn model. In this model, objects of real interest (such as atoms, people, cars, etc.) are represented as coloured balls in an urn or other container. This urn contains x red and y blue balls; one ball is drawn randomly from the urn and its colour observed; it is then returned in the urn, and an additional ball of the same colour is added to the urn, and the selection process is repeated. Thus, every time a ball is observed, an additional ball of the same colour is added to the urn. Hence, the number of total marbles in the urn grows. Questions of interest are the evolution of the urn population and the sequence of colours of the balls drawn out.','<br>', '<br>',
             'This model has many applications. Here, the balls represent previous memories and how they influence learning behaviour. For instance, imagine learning to play the piano. When you start learning a song, you might have two failing attempts then you take a lesson and you learn how to play your song for the first time. Now you have a total of three memories of playing the song; two incorrect experiences and one correct. In our model the balls represent these experiences in the form of memory traces. All the blue balls represent correct previous experiences and the red balls incorrect ones. Now you want to play this song for the fourth time, to do this correctly you have to sample from your earlier experiences and hope retrieve the experience when you correctly played the song (grab a blue ball). ','<br>','<br>',
             'Based on this simple learning scheme, how does your skill develop? On the long term, will you be able to learn to play the song and, what factors will influence this development. That is exactly what we will try to figure out with this simulation. If you head over to the next tab on the left (Standard Model) the standard Polya urn model will be shown, based on this process.','<br>', '<br>', 'Enjoy!'
       )})
 
 
-    # Output 1
-    output$plot1 = renderPlot({         # Plot the return value, the dataframe
-      matplot(fraction_blue(), main = 'Proportion of blue balls after picks:',ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1), type = 'l',lty = 1, lwd = 2)
-    })
+    ###################### Output 1 ######################
+
+    output$plot1 = renderPlot({                                                      # Plot the return value, the dataframe
+      if (input$urn_size == 11 & input$n_picks == 8 & input$n_experiments == 92){   # statements for the easter egg
+        candle = function(pos)                                                   # create the candles
+        {
+          x=pos[1]                                                                    # positions of the flames
+          y=pos[2]
+          rect(x,y,x+.2,y+2,col="red")                                                # create rectangles
+          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")
+          polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
+        }
+        cake_colour="#FF3399"
+        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
+        draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
+        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)
+        rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
+        lines(c(1,1),c(2,5))
+        lines(c(9,9),c(2,5))
+        draw.ellipse(5,5,col=cake_colour,a=4,b=1.4)
+        candle(c(2.5,4.5))                                                            # set candles
+        candle(c(3,5))
+        candle(c(4,4.5))
+        candle(c(5,5))
+        candle(c(6,4.5))
+        candle(c(7,5.2))
+      }else{                                                                        # or else plot fraction blue outcome
+        matplot(fraction_blue(), main = 'Proportion of blue balls after picks:',ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1), type = 'l',lty = 1, lwd = 2)
+      }})
+
     output$hist1 = renderPlot({         # Plot the density
       hist(as.numeric(tail(fraction_blue(),1)),main = 'Final density over the proportion of blue balls:',xlab="Proportion of blue balls",freq = F, xlim = c(0,1))
       lines(density(as.numeric(tail(fraction_blue(),1))), xlab="", ylab="", main="", xaxt="n", yaxt="n", col = "blue", lwd = 2)
@@ -407,10 +425,36 @@ polya = function(){
     output$room = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','.')})         # needed in order to create room for the drop out box
 
 
-    # Output 2
-    output$plot2 = renderPlot({
-      matplot(fraction_blue2(),ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1),type = 'l',lty = 1, lwd = 2)
-    })
+    ###################### Output 2 ######################
+
+    output$plot2 = renderPlot({                                                       # Plot the return value, the dataframe
+      if (input$urn_size2 == 11 & input$n_picks2 == 8 & input$n_experiments2 == 92){  # statements for the easter egg
+        candle = function(pos)                                                        # create the candles
+        {
+          x=pos[1]                                                                    # positions of the flames
+          y=pos[2]
+          rect(x,y,x+.2,y+2,col="red")                                                # create rectangles
+          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")
+          polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
+        }
+        cake_colour="#FF3399"
+        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
+        draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
+        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)
+        rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
+        lines(c(1,1),c(2,5))
+        lines(c(9,9),c(2,5))
+        draw.ellipse(5,5,col=cake_colour,a=4,b=1.4)
+        candle(c(2.5,4.5))                                                            # set candles
+        candle(c(3,5))
+        candle(c(4,4.5))
+        candle(c(5,5))
+        candle(c(6,4.5))
+        candle(c(7,5.2))
+      }else{                                                                          # or else plot fraction blue outcome
+        matplot(fraction_blue2(), main = 'Proportion of blue balls after picks:',ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1), type = 'l',lty = 1, lwd = 2)
+      }})
+
     output$hist2 = renderPlot({
       hist(as.numeric(tail(fraction_blue2(),1)),main = 'Final density over the proportion of blue balls:',xlab="Proportion of blue balls",freq = F, xlim = c(0,1))
       lines(density(as.numeric(tail(fraction_blue2(),1))), xlab="", ylab="", main="", xaxt="n", yaxt="n", col = "blue", lwd = 2)
@@ -421,10 +465,36 @@ polya = function(){
     output$room2 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','.')})        # needed in order to create room for the drop out box
 
 
-    # Output 3
-    output$plot3 = renderPlot({
-      matplot(fraction_blue3(),ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1),type = 'l',lty = 1, lwd = 2)
-    })
+    ###################### Output 3 ######################
+
+    output$plot3 = renderPlot({                                                       # Plot the return value, the dataframe
+      if (input$urn_size3 == 11 & input$n_picks3 == 8 & input$n_experiments3 == 92){  # statements for the easter egg
+        candle = function(pos)                                                        # create the candles
+        {
+          x=pos[1]                                                                    # positions of the flames
+          y=pos[2]
+          rect(x,y,x+.2,y+2,col="red")                                                # create rectangles
+          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")
+          polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
+        }
+        cake_colour="#FF3399"
+        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
+        draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
+        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)
+        rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
+        lines(c(1,1),c(2,5))
+        lines(c(9,9),c(2,5))
+        draw.ellipse(5,5,col=cake_colour,a=4,b=1.4)
+        candle(c(2.5,4.5))                                                            # set candles
+        candle(c(3,5))
+        candle(c(4,4.5))
+        candle(c(5,5))
+        candle(c(6,4.5))
+        candle(c(7,5.2))
+      }else{                                                                          # or else plot fraction blue outcome
+        matplot(fraction_blue3(), main = 'Proportion of blue balls after picks:',ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1), type = 'l',lty = 1, lwd = 2)
+      }})
+
     output$hist3 = renderPlot({
       hist(as.numeric(tail(fraction_blue3(),1)),main = 'Final density over the proportion of blue balls:',xlab="Proportion of blue balls",freq = F, xlim = c(0,1))
       lines(density(as.numeric(tail(fraction_blue3(),1))), xlab="", ylab="", main="", xaxt="n", yaxt="n", col = "blue", lwd = 2)
@@ -436,10 +506,36 @@ polya = function(){
     output$room3 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','.')})        # needed in order to create room for the drop out box
 
 
-    # Output 4
-    output$plot4 = renderPlot({
-      matplot(fraction_blue4(),ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1),type = 'l',lty = 1, lwd = 2)
-    })
+    ###################### Output 4 ######################
+
+    output$plot4 = renderPlot({                                                       # Plot the return value, the dataframe
+      if (input$urn_size4 == 11 & input$n_picks4 == 8 & input$n_experiments4 == 92){  # statements for the easter egg
+        candle = function(pos)                                                        # create the candles
+        {
+          x=pos[1]                                                                    # positions of the flames
+          y=pos[2]
+          rect(x,y,x+.2,y+2,col="red")                                                # create rectangles
+          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")
+          polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
+        }
+        cake_colour="#FF3399"
+        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
+        draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
+        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)
+        rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
+        lines(c(1,1),c(2,5))
+        lines(c(9,9),c(2,5))
+        draw.ellipse(5,5,col=cake_colour,a=4,b=1.4)
+        candle(c(2.5,4.5))                                                            # set candles
+        candle(c(3,5))
+        candle(c(4,4.5))
+        candle(c(5,5))
+        candle(c(6,4.5))
+        candle(c(7,5.2))
+      }else{                                                                          # or else plot fraction blue outcome
+        matplot(fraction_blue4(), main = 'Proportion of blue balls after picks:',ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1), type = 'l',lty = 1, lwd = 2)
+      }})
+
     output$hist4 = renderPlot({
       hist(as.numeric(tail(fraction_blue4(),1)),main = 'Final density over the proportion of blue balls:',xlab="Proportion of blue balls",freq = F, xlim = c(0,1))
       lines(density(as.numeric(tail(fraction_blue4(),1))), xlab="", ylab="", main="", xaxt="n", yaxt="n", col = "blue", lwd = 2)
@@ -449,10 +545,36 @@ polya = function(){
     output$room4 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','.')})        # needed in order to create room for the drop out box
 
 
-    # Output 5
-    output$plot5 = renderPlot({
-      matplot(fraction_blue5(),ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1),type = 'l',lty = 1, lwd = 2)
-    })
+    ###################### Output 5 ######################
+
+    output$plot5 = renderPlot({                                                       # Plot the return value, the dataframe
+      if (input$urn_size5 == 11 & input$n_picks5 == 8 & input$n_experiments5 == 92){  # statements for the easter egg
+        candle = function(pos)                                                        # create the candles
+        {
+          x=pos[1]                                                                    # positions of the flames
+          y=pos[2]
+          rect(x,y,x+.2,y+2,col="red")                                                # create rectangles
+          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")
+          polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
+        }
+        cake_colour="#FF3399"
+        plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
+        draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
+        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)
+        rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
+        lines(c(1,1),c(2,5))
+        lines(c(9,9),c(2,5))
+        draw.ellipse(5,5,col=cake_colour,a=4,b=1.4)
+        candle(c(2.5,4.5))                                                            # set candles
+        candle(c(3,5))
+        candle(c(4,4.5))
+        candle(c(5,5))
+        candle(c(6,4.5))
+        candle(c(7,5.2))
+      }else{                                                                          # or else plot fraction blue outcome
+        matplot(fraction_blue5(), main = 'Proportion of blue balls after picks:',ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1), type = 'l',lty = 1, lwd = 2)
+      }})
+
     output$hist5 = renderPlot({
       hist(as.numeric(tail(fraction_blue5(),1)),main = 'Final density over the proportion of blue balls:',xlab="Proportion of blue balls",freq = F, xlim = c(0,1))
       lines(density(as.numeric(tail(fraction_blue5(),1))), xlab="", ylab="", main="", xaxt="n", yaxt="n", col = "blue", lwd = 2)
@@ -462,12 +584,14 @@ polya = function(){
     output$room5 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','.')})        # needed in order to create room for the drop out box
 
 
-    # Output 6
+    ###################### Output 6 ######################
+
     output$summary6 = renderText({paste('Now to put our knowledge to the test... Lets generate a random model and try to estimate which scenario it represents. Press the generate button to start...')})
     output$room6 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','<br>','.')}) # needed in order to create room for the drop out box
 
-    # Output 7
-    output$summary7 = renderText({         # Summary introduction
+    ###################### Output 7 ######################
+
+    output$summary7 = renderText({                          # Some nice rickrollin' text
       paste('Were no strangers to love','<br>','
             You know the rules and so do I','<br>','
             A full commitments what Im thinking of','<br>','
@@ -525,6 +649,10 @@ polya = function(){
             Never gonna run around and desert you','<br>','
             Never gonna make you cry'
       )})
+
+    # Output Easter Egg
+
+
     }
   shinyApp(ui = ui, server = server) #start app
-    }
+  }

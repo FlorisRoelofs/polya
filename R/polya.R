@@ -5,9 +5,6 @@
 
 polya = function(){
 
-  install.packages('shinydashboard') # Instal shiny dashboard
-  install.packages('shiny')          # Instal shiny
-  install.packages('ggplot2')        # Instal ggplot
   library(shinydashboard)      # Load shiny dashboard
   library(shiny)               # Load shiny
   library(ggplot2)             # Load ggplot2
@@ -16,13 +13,14 @@ polya = function(){
                        dashboardHeader(title = 'Tracing Memory Traces',titleWidth = 230),               # set main title and size
                        dashboardSidebar(
                          sidebarMenu(
-                           menuItem('Introduction' , tabName = 'nul', icon = icon('hand-peace-o')),     # creat side menus with names, and icons
+                           menuItem('Introduction' , tabName = 'nul', icon = icon('handshake-o')),     # creat side menus with names, call names, and icons
                            menuItem('Standard Model' , tabName = 'een', icon = icon('info-circle')),
                            menuItem('Positive Feedback', tabName = 'twee',icon = icon('info-circle')),
                            menuItem('Critical Moments', tabName = 'drie',icon = icon('info-circle')),
                            menuItem('Life Events', tabName = 'vier',icon = icon('info-circle')),
                            menuItem('Decay', tabName = 'vijf',icon = icon('info-circle')),
-                           menuItem('Testing', tabName = 'zes',icon = icon('gamepad'))
+                           menuItem('Testing', tabName = 'zes',icon = icon('gamepad')),
+                           menuItem('Closing', tabName = 'zeven', icon = icon('hand-spock-o'))
                          )
                        ),
                        dashboardBody(
@@ -62,7 +60,7 @@ polya = function(){
                              box(numericInput("extra_balls", "Amount of Extra Balls: (1-10)", min = 1, max = 10,value = 1)),
                              tabsetPanel(
                                tabPanel("Summary", htmlOutput('summary2'),br(),                                             # create summary tab
-                                        box(selectInput('test2', 'By adding the maximum amount of extra blue balls, do you think the proportion of blue balls will always go to its maximum?', # create multiple choise test
+                                        box(selectInput('test2', 'By adding the maximum amount of extra blue balls (create a very strong positive feedback), do you think the starting urn size will influence the outcome proportion more?', # create multiple choise test ##
                                                         c('-Please select answer-' = 0,
                                                           'Yes' = 1,
                                                           'No' = 2))),
@@ -108,7 +106,7 @@ polya = function(){
                                                'Major (lose last 75% experiences)' = 75))),
                              tabsetPanel(
                                tabPanel("Summary", htmlOutput('summary4'),br(),                                     # create summary tab
-                                        box(selectInput('test4', 'When does the onset of the trauma has the biggest effect?',
+                                        box(selectInput('test4', 'When does the onset of the trauma could have the biggest effect?',
                                                         c('-Please select answer-' = 0,
                                                           'Early on' = 1,
                                                           'Around the middle' = 2,
@@ -163,7 +161,12 @@ polya = function(){
                                       tabPanel("feedback", htmlOutput('feedback')),
                                       htmlOutput('room6')
                              ))
-                           )
+                           ),
+
+                           tabItem(tabName = 'zeven', fluidRow( h1('Thank you for playing'),         # provide title of the first page
+                                                                htmlOutput('summary7')                    # set variable name for summary0 text box
+                           ))
+
                          )
                        ))
 
@@ -193,9 +196,9 @@ polya = function(){
 
     observeEvent(input$check1, {           # Check question 1
       if (input$test1 == 2){
-        output$feedback1 = renderText({paste('Correct!')})
+        output$feedback1 = renderText({paste('Correct! Test this for yourself by pressing on the plot tab next to this summary. Try do fiddle with the parameters until you understand what they do and represent. If you are lost, you can read this summary tab again.')})
       }else if (input$test1 == 1){
-        output$feedback1 = renderText({paste('Wrong!')})
+        output$feedback1 = renderText({paste('Wrong! Try again.')})
       }else{
         output$feedback1 = renderText({paste('Please select answer')})
       }
@@ -229,9 +232,9 @@ polya = function(){
 
     observeEvent(input$check2, {           # Check question 2
       if (input$test2 == 2){
-        output$feedback2 = renderText({paste('Correct! Try this out yourself.')})
+        output$feedback2 = renderText({paste('Correct! Try looking at the differences between the plots when changing the starting urn size.')})
       }else if (input$test2 == 1){
-        output$feedback2 = renderText({paste('Wrong! Try this out yourself.')})
+        output$feedback2 = renderText({paste('Wrong! Try again.')})
       }else{
         output$feedback2 = renderText({paste('Please select answer')})
       }
@@ -266,7 +269,7 @@ polya = function(){
       if (input$test3 == 1){
         output$feedback3 = renderText({paste('Correct! Try this with the maximum amount of experiments.')})
       }else if (input$test3 == 2){
-        output$feedback3 = renderText({paste('Wrong! Try this with the maximum amount of experiments.')})
+        output$feedback3 = renderText({paste('Wrong! Try again.')})
       }else{
         output$feedback3 = renderText({paste('Please select answer')})
       }
@@ -305,7 +308,7 @@ polya = function(){
       }else if (input$test4 == 1){
         output$feedback4 = renderText({paste('Correct! Try looking at a major trauma with an very early onset.')})
       }else{
-        output$feedback4 = renderText({paste('Wrong! Try looking at a major trauma with an very early onset.')})
+        output$feedback4 = renderText({paste('Wrong! Try again.')})
       }
     })
 
@@ -339,7 +342,7 @@ polya = function(){
       if (input$test5 == 1){
         output$feedback5 = renderText({paste('Correct!')})
       }else if (input$test5 == 2){
-        output$feedback5 = renderText({paste('Wrong!')})
+        output$feedback5 = renderText({paste('Wrong! Try again.')})
       }else{
         output$feedback5 = renderText({paste('Please select answer')})
       }
@@ -351,7 +354,6 @@ polya = function(){
 
     observeEvent(input$start, {
       X = sample(c(2:5),1)                      # generate random number between 2 and 5 to generate previous models, plot model based on number
-      
       if (X == 2){
         output$plot6 = renderPlot({
           matplot(fraction_blue2(),ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1),type = 'l',lty = 1, lwd = 2)
@@ -373,7 +375,7 @@ polya = function(){
         if (X == input$model){
           output$feedback = renderText({paste('Correct!')})
         }else{
-          output$feedback = renderText({paste('Wrong!')})
+          output$feedback = renderText({paste('Wrong! Try again.')})
         }
       })
     })
@@ -413,7 +415,7 @@ polya = function(){
       hist(as.numeric(tail(fraction_blue2(),1)),main = 'Final density over the proportion of blue balls:',xlab="Proportion of blue balls",freq = F, xlim = c(0,1))
       lines(density(as.numeric(tail(fraction_blue2(),1))), xlab="", ylab="", main="", xaxt="n", yaxt="n", col = "blue", lwd = 2)
     })
-    output$summary2 = renderText({paste('As you might saw, the outcome of each experiment fluctuates greatly between each other. Even the density plot has no real consistent outcome. It seems that this standard model is very stochastic, unable to predict a certain outcome. This does not seem intuitively reflect learning behaviour. Lets improve this model.', '<br>', '<br>',
+    output$summary2 = renderText({paste('As you might discovered, the outcome of each experiment fluctuates greatly between each other. Even the density plot has no real consistent outcome. It seems that this standard model is very stochastic, unable to predict a certain outcome. This does not seem intuitively reflect learning behaviour. Lets improve this model.', '<br>', '<br>',
                                         'Here we are adding a positive feedback parameter called, amount of extra balls. What this does is, when you had a successful experience (e.g. grabbed a blue ball), you will not add only one extra blue ball, but more then one. You could think of this as positive feedback; once you had a good experience, this will be stronger remembered compared to a bad experience. So to make it more easily to retrieve this memory, you could increase the chance of retrieving this memory again. By adding more blue balls during correct experiences, you are able to do this. Lets see how this parameter influences our model.','<br>',
                                         'But first, try to answer this next question.')})
     output$room2 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','.')})        # needed in order to create room for the drop out box
@@ -442,8 +444,8 @@ polya = function(){
       hist(as.numeric(tail(fraction_blue4(),1)),main = 'Final density over the proportion of blue balls:',xlab="Proportion of blue balls",freq = F, xlim = c(0,1))
       lines(density(as.numeric(tail(fraction_blue4(),1))), xlab="", ylab="", main="", xaxt="n", yaxt="n", col = "blue", lwd = 2)
     })
-    output$summary4 = renderText({paste('Time to get a bit dramatic. What if you were unlucky and suffered a head trauma and you would lose a few past experiences (retrograde amnesia)? How resilient are memories based on this model? These kind of major live events could have a big influence on development.','<br>', '<br>',
-                                        'Lets figure this out with these new parameters. First you are able to indicate the time of the trauma. After how many picks did the trauma occurred? Secondly, how drastic was the trauma. That is, how many previous experiences did you lose.','<br>', 'But first, try to answer this next question.')})
+    output$summary4 = renderText({paste('Time to get a bit dramatic. What if you were unlucky and suffered from a head trauma and you would lose a few past experiences (retrograde amnesia)? How resilient are memories based on this model? These kind of major live events could have a big influence on development.','<br>', '<br>',
+                                        'Lets figure this out with these new parameters. First you are able to indicate the time of the trauma. After how many picks did the trauma occurred? Secondly, how drastic was the trauma. That is, how many previous experiences did you lose.','<br>', 'Try to answer this next question.')})
     output$room4 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','.')})        # needed in order to create room for the drop out box
 
 
@@ -463,6 +465,66 @@ polya = function(){
     # Output 6
     output$summary6 = renderText({paste('Now to put our knowledge to the test... Lets generate a random model and try to estimate which scenario it represents. Press the generate button to start...')})
     output$room6 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','<br>','.')}) # needed in order to create room for the drop out box
-  }
+
+    # Output 7
+    output$summary7 = renderText({         # Summary introduction
+      paste('Were no strangers to love','<br>','
+            You know the rules and so do I','<br>','
+            A full commitments what Im thinking of','<br>','
+            You wouldnt get this from any other guy','<br>','
+            I just wanna tell you how Im feeling','<br>','
+            Gotta make you understand','<br>','<br>','
+            Never gonna give you up','<br>','
+            Never gonna let you down','<br>','
+            Never gonna run around and desert you','<br>','
+            Never gonna make you cry','<br>','
+            Never gonna say goodbye','<br>','
+            Never gonna tell a lie and hurt you','<br>','<br>','
+            Weve known each other for so long','<br>','
+            Your hearts been aching but youre too shy to say it','<br>','
+            Inside we both know whats been going on','<br>','
+            We know the game and were gonna play it','<br>','
+            And if you ask me how Im feeling','<br>','
+            Dont tell me youre too blind to see','<br>','<br>','
+            Never gonna give you up','<br>','
+            Never gonna let you down','<br>','
+            Never gonna run around and desert you','<br>','
+            Never gonna make you cry','<br>','
+            Never gonna say goodbye','<br>','
+            Never gonna tell a lie and hurt you','<br>','
+            Never gonna give you up','<br>','
+            Never gonna let you down','<br>','
+            Never gonna run around and desert you','<br>','
+            Never gonna make you cry','<br>','
+            Never gonna say goodbye','<br>','
+            Never gonna tell a lie and hurt you','<br>','<br>','
+            Never gonna give, never gonna give','<br>','
+            (Give you up)','<br>','
+            (Ooh) Never gonna give, never gonna give','<br>','
+            (Give you up)','<br>','<br>','
+            Weve known each other for so long','<br>','
+            Your hearts been aching but youre too shy to say it','<br>','
+            Inside we both know whats been going on','<br>','
+            We know the game and were gonna play it','<br>','<br>','
+            I just wanna tell you how Im feeling','<br>','
+            Gotta make you understand','<br>','<br>','
+            Never gonna give you up','<br>','
+            Never gonna let you down','<br>','
+            Never gonna run around and desert you','<br>','
+            Never gonna make you cry','<br>','
+            Never gonna say goodbye','<br>','
+            Never gonna tell a lie and hurt you','<br>','
+            Never gonna give you up','<br>','
+            Never gonna let you down','<br>','
+            Never gonna run around and desert you','<br>','
+            Never gonna make you cry','<br>','
+            Never gonna say goodbye','<br>','
+            Never gonna tell a lie and hurt you','<br>','
+            Never gonna give you up','<br>','
+            Never gonna let you down','<br>','
+            Never gonna run around and desert you','<br>','
+            Never gonna make you cry'
+      )})
+    }
   shinyApp(ui = ui, server = server) #start app
-}
+    }

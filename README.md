@@ -1,4 +1,4 @@
-# Users guide
+# User guide
 
 This guide will explain how to open and use this package. First, in order to get it running, use the following codes inside the R console to install this package:
 
@@ -15,9 +15,10 @@ install_github("FlorisRoelofs/polya")
 library(Polya)
 
 
-############################### EXTRA PACKAGES #######################################
+############################### EXTRA PACKAGES NEEDED ###################################
 
-In order to run the simulation, be sure to have shiny, shiny dashboard and ggplot installed.
+
+In order to run the simulation, be sure to have shiny, shiny dashboard, ggplot and plotrix installed.
 If you haven't, please do so by running the following code:
 
 install.packages('shiny')     
@@ -30,7 +31,11 @@ library(shinydashboard)
 
 install.packages('ggplot2')    
 
-library(ggplot2)               
+library(ggplot2)
+
+install.packages('plotrix')
+
+library(plotrix)
 
 ############################### INTRODUCTION #########################################
 

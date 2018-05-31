@@ -4,13 +4,12 @@
 #' @export
 
 polya = function(){
-
-  library(shinydashboard)       # Load shiny dashboard
-  library(shiny)                # Load shiny
-  library(ggplot2)              # Load ggplot2
-  #install.packages('plotrix')  # For easter egg
-  #library(plotrix)             # For easter egg
-
+  
+  library(shinydashboard)      # Load shiny dashboard
+  library(shiny)               # Load shiny
+  library(ggplot2)             # Load ggplot2
+  library(plotrix)             # For easter egg
+  
   ui <- dashboardPage( skin = 'green',                                                                  # creat UI
                        dashboardHeader(title = 'Tracing Memory Traces',titleWidth = 230),               # set main title and size
                        dashboardSidebar(
@@ -27,14 +26,14 @@ polya = function(){
                        ),
                        dashboardBody(
                          tabItems(
-
-
+                           
+                           
                            # tab 0 Introduction
                            tabItem(tabName = 'nul', fluidRow( h1('Welcome to this simulation'),         # provide title of the first page
                                                               htmlOutput('summary0')                    # set variable name for summary0 text box
                            )),
-
-
+                           
+                           
                            # tab 1 Standard Model
                            tabItem(tabName = 'een', fluidRow(
                              box(sliderInput("urn_size", "Starting Urn Size:", min = 2, max = 100, value = 2)),               # Initialize parameters (urn size, n_picks & n_experiments) with their range
@@ -51,8 +50,8 @@ polya = function(){
                                         htmlOutput('room')),                              # create empty room in order to fully be able to see all the answers from drop menu
                                tabPanel("Plot",plotOutput('plot1'),"",plotOutput('hist1')))    # create plot tab with figure and histogram      ## Most of this will be repeated in code
                            )),
-
-
+                           
+                           
                            # tab 2 Positive Feedback
                            tabItem(tabName = 'twee', fluidRow(                                                              # Initialize parameters
                              box(sliderInput("urn_size2", "Starting Urn Size:", min = 2, max = 100, value = 2)),
@@ -70,8 +69,8 @@ polya = function(){
                                         htmlOutput('room2')),
                                tabPanel("Plot",plotOutput('plot2'),"",plotOutput('hist2')))    # create plot tab with figure and histogram
                            )),
-
-
+                           
+                           
                            # tab 3 Critical Moments
                            tabItem(tabName = 'drie', fluidRow(                                                      # Initialize parameters
                              box(sliderInput("urn_size3", "Starting Urn Size:", min = 2, max = 100, value = 2)),
@@ -90,8 +89,8 @@ polya = function(){
                                         htmlOutput('room3')),
                                tabPanel("Plot",plotOutput('plot3'),"",plotOutput('hist3')))                         # create plot tab with figure and histogram
                            )),
-
-
+                           
+                           
                            # tab 4 Life Events
                            tabItem(tabName = 'vier', fluidRow(                                                      # Initialize parameters
                              box(sliderInput("urn_size4", "Starting Urn Size:", min = 2, max = 100, value = 2)),
@@ -114,8 +113,8 @@ polya = function(){
                                         htmlOutput('room4')),
                                tabPanel("Plot",plotOutput('plot4'),"",plotOutput('hist4')))                         # create plot tab with figure and histogram
                            )),
-
-
+                           
+                           
                            # tab 5 Decay
                            tabItem(tabName = 'vijf', fluidRow(                                                      # Initialize parameters
                              box(sliderInput("urn_size5", "Starting Urn Size:", min = 2, max = 100, value = 2)),
@@ -134,8 +133,8 @@ polya = function(){
                                         htmlOutput('room5')),
                                tabPanel("Plot",plotOutput('plot5'),"",plotOutput('hist5')))                         # create plot tab with figure and histogra
                            )),
-
-
+                           
+                           
                            # tab 6 Testin
                            tabItem(tabName = 'zes', fluidRow(
                              box(actionButton("start", "Generate!")),                                  # creat generate button
@@ -154,25 +153,25 @@ polya = function(){
                                       htmlOutput('room6')
                              ))
                            ),
-
-                           tabItem(tabName = 'zeven', fluidRow( h1('Thank you for playing'),         # provide title of the first page
+                           
+                           tabItem(tabName = 'zeven', fluidRow( h1('Thank you for playing'),br(),('Funny fact to leave you with: I was born on the same date as Hulk Hogan, only 39 years later. Pretty sweet right?'),br(),br(),         # provide title of the final page and easteregg hint
                                                                 htmlOutput('summary7')                    # set variable name for summary0 text box
                            ))
-
+                           
                          )
                        ))
-
+  
   server <- function(input, output){           # create server
-
+    
     ################################## Create plots and check questions ##################################################
-
+    
     # Plot for standard model
-
+    
     fraction_blue = reactive({                                # create reactive function responsive to users input
-
+      
       df_fractions = data.frame()                             # initialize dataframe for collecting proportions blue balls per experiment
       for( j in 1:input$n_experiments){                       # loop over the amount of experiments
-
+        
         urn = rep(c('blue', 'red'), each = input$urn_size/2)  # initialize the urn with eaual amount of balls
         fraction_blue_ = vector()                             # initialize vector of proportion blue balls
         for (i in 1:input$n_picks){                           # loop over the amount of picks
@@ -184,7 +183,7 @@ polya = function(){
       }
       return(df_fractions)                                      # return dataframe of all proportions over all experiments to plot later
     })
-
+    
     observeEvent(input$check1, {           # Check question 1
       if (input$test1 == 2){
         output$feedback1 = renderText({paste('Correct! Test this for yourself by pressing on the plot tab next to this summary. Try do fiddle with the parameters until you understand what they do and represent. If you are lost, you can read this summary tab again.')})
@@ -194,17 +193,17 @@ polya = function(){
         output$feedback1 = renderText({paste('Please select answer')})
       }
     })
-
+    
     #####################################################################################################
-
+    
     # Plot for learning model
-
+    
     fraction_blue2 = reactive({                              # create reactive function responsive to users input
-
+      
       df_fractions = data.frame()
-
+      
       for( j in 1:input$n_experiments2){
-
+        
         urn = rep(c('blue', 'red'), each = input$urn_size2/2)
         fraction_blue_ = vector()
         for (i in 1:input$n_picks2){
@@ -220,7 +219,7 @@ polya = function(){
       }
       return(df_fractions)                                   # return dataframe of all proportions over all experiments to plot later
     })
-
+    
     observeEvent(input$check2, {           # Check question 2
       if (input$test2 == 2){
         output$feedback2 = renderText({paste('Correct! Try looking at the differences between the plots when changing the starting urn size.')})
@@ -230,17 +229,17 @@ polya = function(){
         output$feedback2 = renderText({paste('Please select answer')})
       }
     })
-
+    
     #####################################################################################################
-
+    
     # Plot for streak model
-
+    
     fraction_blue3 = reactive({                               # create reactive function responsive to users input
-
+      
       df_fractions = data.frame()
-
+      
       for( j in 1:input$n_experiments3){
-
+        
         urn = sample(rep(c('blue', 'red'), each = input$urn_size3/2))
         fraction_blue_ = vector()
         for (i in 1:input$n_picks3){
@@ -255,7 +254,7 @@ polya = function(){
       }
       return(df_fractions)                                                    # return dataframe of all proportions over all experiments to plot later
     })
-
+    
     observeEvent(input$check3, {           # Check question 3
       if (input$test3 == 1){
         output$feedback3 = renderText({paste('Correct! Try this with the maximum amount of experiments.')})
@@ -265,18 +264,18 @@ polya = function(){
         output$feedback3 = renderText({paste('Please select answer')})
       }
     })
-
+    
     #####################################################################################################
-
+    
     # Plot for life event model
-
+    
     fraction_blue4 = reactive({
-
+      
       df_fractions = data.frame()
       drastic_trauma = as.numeric(input$drastic_trauma)                      # set input as numeric value
-
+      
       for( j in 1:input$n_experiments4){
-
+        
         urn = sample(rep(c('blue', 'red'), each = input$urn_size4/2))
         fraction_blue_ = vector()
         for (i in 1:input$n_picks4){
@@ -292,7 +291,7 @@ polya = function(){
       }
       return(df_fractions)                                                   # return dataframe of all proportions over all experiments to plot later
     })
-
+    
     observeEvent(input$check4, {           # Check question 4
       if (input$test4 == 0){
         output$feedback4 = renderText({paste('Please select answer')})
@@ -302,17 +301,17 @@ polya = function(){
         output$feedback4 = renderText({paste('Wrong! Try again.')})
       }
     })
-
+    
     #####################################################################################################
-
+    
     # Plot for decay model
-
+    
     fraction_blue5 = reactive({
-
+      
       df_fractions = data.frame()
-
+      
       for( j in 1:input$n_experiments5){
-
+        
         urn = rep(c('blue', 'red'), each = input$urn_size5/2)
         fraction_blue_ = vector()
         for (i in 1:input$n_picks5){
@@ -321,14 +320,14 @@ polya = function(){
           if (i %% input$many_picks == 0){                    # after each [imput] picks
             urn[-sample(length(urn),(input$much_decay))]      # delete [imput] random elements form urn
           }
-
+          
           fraction_blue_[i] = sum(urn == 'blue')/length(urn)  # calculate fraction red and store
         }
         df_fractions[1:length(fraction_blue_),j] = fraction_blue_
       }
       return(df_fractions)                                    # return dataframe of all proportions over all experiments to plot later
     })
-
+    
     observeEvent(input$check5, {           # Check question 5
       if (input$test5 == 1){
         output$feedback5 = renderText({paste('Correct!')})
@@ -338,11 +337,11 @@ polya = function(){
         output$feedback5 = renderText({paste('Please select answer')})
       }
     })
-
+    
     #####################################################################################################
-
+    
     # Plot for testing page                   ##########  I unfortunately didnt had enough time to generate a different models on each click. SO now it plots the previous set models
-
+    
     observeEvent(input$start, {
       X = sample(c(2:5),1)                      # generate random number between 2 and 5 to generate previous models, plot model based on number
       if (X == 2){
@@ -370,34 +369,34 @@ polya = function(){
         }
       })
     })
-
+    
     ################################### Create all output ##################################################################
-
+    
     ###################### Output 0 ######################
-
+    
     output$summary0 = renderText({       # Summary introduction
       paste('In this application we are trying to simulate a model known as the Polya urn model. In this model, objects of real interest (such as atoms, people, cars, etc.) are represented as coloured balls in an urn or other container. This urn contains x red and y blue balls; one ball is drawn randomly from the urn and its colour observed; it is then returned in the urn, and an additional ball of the same colour is added to the urn, and the selection process is repeated. Thus, every time a ball is observed, an additional ball of the same colour is added to the urn. Hence, the number of total marbles in the urn grows. Questions of interest are the evolution of the urn population and the sequence of colours of the balls drawn out.','<br>', '<br>',
             'This model has many applications. Here, the balls represent previous memories and how they influence learning behaviour. For instance, imagine learning to play the piano. When you start learning a song, you might have two failing attempts then you take a lesson and you learn how to play your song for the first time. Now you have a total of three memories of playing the song; two incorrect experiences and one correct. In our model the balls represent these experiences in the form of memory traces. All the blue balls represent correct previous experiences and the red balls incorrect ones. Now you want to play this song for the fourth time, to do this correctly you have to sample from your earlier experiences and hope retrieve the experience when you correctly played the song (grab a blue ball). ','<br>','<br>',
             'Based on this simple learning scheme, how does your skill develop? On the long term, will you be able to learn to play the song and, what factors will influence this development. That is exactly what we will try to figure out with this simulation. If you head over to the next tab on the left (Standard Model) the standard Polya urn model will be shown, based on this process.','<br>', '<br>', 'Enjoy!'
       )})
-
-
+    
+    
     ###################### Output 1 ######################
-
+    
     output$plot1 = renderPlot({                                                      # Plot the return value, the dataframe
       if (input$urn_size == 11 & input$n_picks == 8 & input$n_experiments == 92){   # statements for the easter egg
         candle = function(pos)                                                   # create the candles
         {
           x=pos[1]                                                                    # positions of the flames
-          y=pos[2]
+          y=pos[2]                                                                    
           rect(x,y,x+.2,y+2,col="red")                                                # create rectangles
-          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")
+          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")             
           polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
         }
         cake_colour="#FF3399"
         plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
         draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
-        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)
+        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)                        
         rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
         lines(c(1,1),c(2,5))
         lines(c(9,9),c(2,5))
@@ -411,7 +410,7 @@ polya = function(){
       }else{                                                                        # or else plot fraction blue outcome
         matplot(fraction_blue(), main = 'Proportion of blue balls after picks:',ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1), type = 'l',lty = 1, lwd = 2)
       }})
-
+    
     output$hist1 = renderPlot({         # Plot the density
       hist(as.numeric(tail(fraction_blue(),1)),main = 'Final density over the proportion of blue balls:',xlab="Proportion of blue balls",freq = F, xlim = c(0,1))
       lines(density(as.numeric(tail(fraction_blue(),1))), xlab="", ylab="", main="", xaxt="n", yaxt="n", col = "blue", lwd = 2)
@@ -423,24 +422,24 @@ polya = function(){
                                         'In the plot tab you are able to see the outcome of the simulation dependent on your given parameters. The figure plots the proportion of blue balls inside of the urn over the course of each pick per experiment. Thus this represents how well someone has learned a certain skill. Beneath this plot, there is also a density plot (only if amount of experiments > 1). Representing the final outcome of the blue balls. That is, the outcome distribution per experiment.' ,'<br>', '<br>',
                                         'To test your knowledge, try to awnser the question below. Click on Check to check your answer. Then try to play around wit the parameters and understand how they influence the model (by looking at the plot tab).')})
     output$room = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','.')})         # needed in order to create room for the drop out box
-
-
+    
+    
     ###################### Output 2 ######################
-
+    
     output$plot2 = renderPlot({                                                       # Plot the return value, the dataframe
       if (input$urn_size2 == 11 & input$n_picks2 == 8 & input$n_experiments2 == 92){  # statements for the easter egg
         candle = function(pos)                                                        # create the candles
         {
           x=pos[1]                                                                    # positions of the flames
-          y=pos[2]
+          y=pos[2]                                                                    
           rect(x,y,x+.2,y+2,col="red")                                                # create rectangles
-          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")
+          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")             
           polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
         }
         cake_colour="#FF3399"
         plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
         draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
-        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)
+        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)                        
         rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
         lines(c(1,1),c(2,5))
         lines(c(9,9),c(2,5))
@@ -454,7 +453,7 @@ polya = function(){
       }else{                                                                          # or else plot fraction blue outcome
         matplot(fraction_blue2(), main = 'Proportion of blue balls after picks:',ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1), type = 'l',lty = 1, lwd = 2)
       }})
-
+    
     output$hist2 = renderPlot({
       hist(as.numeric(tail(fraction_blue2(),1)),main = 'Final density over the proportion of blue balls:',xlab="Proportion of blue balls",freq = F, xlim = c(0,1))
       lines(density(as.numeric(tail(fraction_blue2(),1))), xlab="", ylab="", main="", xaxt="n", yaxt="n", col = "blue", lwd = 2)
@@ -463,24 +462,24 @@ polya = function(){
                                         'Here we are adding a positive feedback parameter called, amount of extra balls. What this does is, when you had a successful experience (e.g. grabbed a blue ball), you will not add only one extra blue ball, but more then one. You could think of this as positive feedback; once you had a good experience, this will be stronger remembered compared to a bad experience. So to make it more easily to retrieve this memory, you could increase the chance of retrieving this memory again. By adding more blue balls during correct experiences, you are able to do this. Lets see how this parameter influences our model.','<br>',
                                         'But first, try to answer this next question.')})
     output$room2 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','.')})        # needed in order to create room for the drop out box
-
-
+    
+    
     ###################### Output 3 ######################
-
+    
     output$plot3 = renderPlot({                                                       # Plot the return value, the dataframe
       if (input$urn_size3 == 11 & input$n_picks3 == 8 & input$n_experiments3 == 92){  # statements for the easter egg
         candle = function(pos)                                                        # create the candles
         {
           x=pos[1]                                                                    # positions of the flames
-          y=pos[2]
+          y=pos[2]                                                                    
           rect(x,y,x+.2,y+2,col="red")                                                # create rectangles
-          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")
+          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")             
           polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
         }
         cake_colour="#FF3399"
         plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
         draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
-        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)
+        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)                        
         rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
         lines(c(1,1),c(2,5))
         lines(c(9,9),c(2,5))
@@ -494,7 +493,7 @@ polya = function(){
       }else{                                                                          # or else plot fraction blue outcome
         matplot(fraction_blue3(), main = 'Proportion of blue balls after picks:',ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1), type = 'l',lty = 1, lwd = 2)
       }})
-
+    
     output$hist3 = renderPlot({
       hist(as.numeric(tail(fraction_blue3(),1)),main = 'Final density over the proportion of blue balls:',xlab="Proportion of blue balls",freq = F, xlim = c(0,1))
       lines(density(as.numeric(tail(fraction_blue3(),1))), xlab="", ylab="", main="", xaxt="n", yaxt="n", col = "blue", lwd = 2)
@@ -504,24 +503,24 @@ polya = function(){
                                         'But first, try to answer this next question.'
     )})
     output$room3 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','.')})        # needed in order to create room for the drop out box
-
-
+    
+    
     ###################### Output 4 ######################
-
+    
     output$plot4 = renderPlot({                                                       # Plot the return value, the dataframe
       if (input$urn_size4 == 11 & input$n_picks4 == 8 & input$n_experiments4 == 92){  # statements for the easter egg
         candle = function(pos)                                                        # create the candles
         {
           x=pos[1]                                                                    # positions of the flames
-          y=pos[2]
+          y=pos[2]                                                                    
           rect(x,y,x+.2,y+2,col="red")                                                # create rectangles
-          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")
+          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")             
           polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
         }
         cake_colour="#FF3399"
         plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
         draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
-        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)
+        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)                        
         rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
         lines(c(1,1),c(2,5))
         lines(c(9,9),c(2,5))
@@ -535,7 +534,7 @@ polya = function(){
       }else{                                                                          # or else plot fraction blue outcome
         matplot(fraction_blue4(), main = 'Proportion of blue balls after picks:',ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1), type = 'l',lty = 1, lwd = 2)
       }})
-
+    
     output$hist4 = renderPlot({
       hist(as.numeric(tail(fraction_blue4(),1)),main = 'Final density over the proportion of blue balls:',xlab="Proportion of blue balls",freq = F, xlim = c(0,1))
       lines(density(as.numeric(tail(fraction_blue4(),1))), xlab="", ylab="", main="", xaxt="n", yaxt="n", col = "blue", lwd = 2)
@@ -543,24 +542,24 @@ polya = function(){
     output$summary4 = renderText({paste('Time to get a bit dramatic. What if you were unlucky and suffered from a head trauma and you would lose a few past experiences (retrograde amnesia)? How resilient are memories based on this model? These kind of major live events could have a big influence on development.','<br>', '<br>',
                                         'Lets figure this out with these new parameters. First you are able to indicate the time of the trauma. After how many picks did the trauma occurred? Secondly, how drastic was the trauma. That is, how many previous experiences did you lose.','<br>', 'Try to answer this next question.')})
     output$room4 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','.')})        # needed in order to create room for the drop out box
-
-
+    
+    
     ###################### Output 5 ######################
-
+    
     output$plot5 = renderPlot({                                                       # Plot the return value, the dataframe
       if (input$urn_size5 == 11 & input$n_picks5 == 8 & input$n_experiments5 == 92){  # statements for the easter egg
         candle = function(pos)                                                        # create the candles
         {
           x=pos[1]                                                                    # positions of the flames
-          y=pos[2]
+          y=pos[2]                                                                    
           rect(x,y,x+.2,y+2,col="red")                                                # create rectangles
-          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")
+          polygon(c(x-.2,x+.4,x+.1,x-.2), c(y+2,y+2,y+2.4,y+2),col="orange")             
           polygon(c(x+.05,x-.1,x+.1,x+.3,x+.15,x+0.05), c(y+2,y+2.3,y+2.6,y+2.3,y+2,y+2),col="orange")
         }
         cake_colour="#FF3399"
         plot(c(0,10), c(0,10),type="n", bty="n",xaxt="n",yaxt="n", main="Happy Birthday Me!", xlab="",ylab="") # set up plot and title
         draw.ellipse(5,2,col=cake_colour,a=4.4,b=1.7,border=1)                        # Draw ellipses
-        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)
+        draw.ellipse(5,2,col=cake_colour,a=4,b=1.4,border=1)                        
         rect(1,2,9,5,col=cake_colour,border=cake_colour)                              # Draw rectangles
         lines(c(1,1),c(2,5))
         lines(c(9,9),c(2,5))
@@ -574,7 +573,7 @@ polya = function(){
       }else{                                                                          # or else plot fraction blue outcome
         matplot(fraction_blue5(), main = 'Proportion of blue balls after picks:',ylab = 'Fraction Blue',xlab = 'picks', ylim = c(0,1), type = 'l',lty = 1, lwd = 2)
       }})
-
+    
     output$hist5 = renderPlot({
       hist(as.numeric(tail(fraction_blue5(),1)),main = 'Final density over the proportion of blue balls:',xlab="Proportion of blue balls",freq = F, xlim = c(0,1))
       lines(density(as.numeric(tail(fraction_blue5(),1))), xlab="", ylab="", main="", xaxt="n", yaxt="n", col = "blue", lwd = 2)
@@ -582,77 +581,76 @@ polya = function(){
     output$summary5 = renderText({paste('There is one more obvious parameter we could incorporate inside our model, decay. As we know memories fade over time. Does this mean that our learned behaviour fades as well?', '<br>', '<br>',
                                         'Here you are able to choose after how many picks, how many (random) balls will be removed from the urn. It stands to reason that some people are more forgetful then others. Before we will look how this will influence the model, try to anwer the next question.')})
     output$room5 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','.')})        # needed in order to create room for the drop out box
-
-
+    
+    
     ###################### Output 6 ######################
-
+    
     output$summary6 = renderText({paste('Now to put our knowledge to the test... Lets generate a random model and try to estimate which scenario it represents. Press the generate button to start...')})
     output$room6 = renderText({paste('.','<br>','<br>','<br>','<br>','<br>','<br>','.')}) # needed in order to create room for the drop out box
-
+    
     ###################### Output 7 ######################
-
-    output$summary7 = renderText({                          # Some nice rickrollin' text
-      paste('Were no strangers to love','<br>','
-            You know the rules and so do I','<br>','
-            A full commitments what Im thinking of','<br>','
-            You wouldnt get this from any other guy','<br>','
-            I just wanna tell you how Im feeling','<br>','
-            Gotta make you understand','<br>','<br>','
-            Never gonna give you up','<br>','
-            Never gonna let you down','<br>','
-            Never gonna run around and desert you','<br>','
-            Never gonna make you cry','<br>','
-            Never gonna say goodbye','<br>','
-            Never gonna tell a lie and hurt you','<br>','<br>','
-            Weve known each other for so long','<br>','
-            Your hearts been aching but youre too shy to say it','<br>','
-            Inside we both know whats been going on','<br>','
-            We know the game and were gonna play it','<br>','
-            And if you ask me how Im feeling','<br>','
-            Dont tell me youre too blind to see','<br>','<br>','
-            Never gonna give you up','<br>','
-            Never gonna let you down','<br>','
-            Never gonna run around and desert you','<br>','
-            Never gonna make you cry','<br>','
-            Never gonna say goodbye','<br>','
-            Never gonna tell a lie and hurt you','<br>','
-            Never gonna give you up','<br>','
-            Never gonna let you down','<br>','
-            Never gonna run around and desert you','<br>','
-            Never gonna make you cry','<br>','
-            Never gonna say goodbye','<br>','
-            Never gonna tell a lie and hurt you','<br>','<br>','
-            Never gonna give, never gonna give','<br>','
-            (Give you up)','<br>','
-            (Ooh) Never gonna give, never gonna give','<br>','
-            (Give you up)','<br>','<br>','
-            Weve known each other for so long','<br>','
-            Your hearts been aching but youre too shy to say it','<br>','
-            Inside we both know whats been going on','<br>','
-            We know the game and were gonna play it','<br>','<br>','
-            I just wanna tell you how Im feeling','<br>','
-            Gotta make you understand','<br>','<br>','
-            Never gonna give you up','<br>','
-            Never gonna let you down','<br>','
-            Never gonna run around and desert you','<br>','
-            Never gonna make you cry','<br>','
-            Never gonna say goodbye','<br>','
-            Never gonna tell a lie and hurt you','<br>','
-            Never gonna give you up','<br>','
-            Never gonna let you down','<br>','
-            Never gonna run around and desert you','<br>','
-            Never gonna make you cry','<br>','
-            Never gonna say goodbye','<br>','
-            Never gonna tell a lie and hurt you','<br>','
-            Never gonna give you up','<br>','
-            Never gonna let you down','<br>','
-            Never gonna run around and desert you','<br>','
-            Never gonna make you cry'
-      )})
-
-    # Output Easter Egg
-
-
+    
+    output$summary7 = renderText({                       # Some nice rickrollin' text
+      if (input$urn_size == 11 & input$n_picks == 8 & input$n_experiments == 92 & input$urn_size2 == 11 & input$n_picks2 == 8 & input$n_experiments2 == 92 & input$urn_size3 == 11 & input$n_picks3 == 8 & input$n_experiments3 == 92 & input$urn_size4 == 11 & input$n_picks4 == 8 & input$n_experiments4 == 92 & input$urn_size5 == 11 & input$n_picks5 == 8 & input$n_experiments5 == 92){
+        paste('Were no strangers to love','<br>','
+              You know the rules and so do I','<br>','
+              A full commitments what Im thinking of','<br>','
+              You wouldnt get this from any other guy','<br>','
+              I just wanna tell you how Im feeling','<br>','
+              Gotta make you understand','<br>','<br>','
+              Never gonna give you up','<br>','
+              Never gonna let you down','<br>','
+              Never gonna run around and desert you','<br>','
+              Never gonna make you cry','<br>','
+              Never gonna say goodbye','<br>','
+              Never gonna tell a lie and hurt you','<br>','<br>','
+              Weve known each other for so long','<br>','
+              Your hearts been aching but youre too shy to say it','<br>','
+              Inside we both know whats been going on','<br>','
+              We know the game and were gonna play it','<br>','
+              And if you ask me how Im feeling','<br>','
+              Dont tell me youre too blind to see','<br>','<br>','
+              Never gonna give you up','<br>','
+              Never gonna let you down','<br>','
+              Never gonna run around and desert you','<br>','
+              Never gonna make you cry','<br>','
+              Never gonna say goodbye','<br>','
+              Never gonna tell a lie and hurt you','<br>','
+              Never gonna give you up','<br>','
+              Never gonna let you down','<br>','
+              Never gonna run around and desert you','<br>','
+              Never gonna make you cry','<br>','
+              Never gonna say goodbye','<br>','
+              Never gonna tell a lie and hurt you','<br>','<br>','
+              Never gonna give, never gonna give','<br>','
+              (Give you up)','<br>','
+              (Ooh) Never gonna give, never gonna give','<br>','
+              (Give you up)','<br>','<br>','
+              Weve known each other for so long','<br>','
+              Your hearts been aching but youre too shy to say it','<br>','
+              Inside we both know whats been going on','<br>','
+              We know the game and were gonna play it','<br>','<br>','
+              I just wanna tell you how Im feeling','<br>','
+              Gotta make you understand','<br>','<br>','
+              Never gonna give you up','<br>','
+              Never gonna let you down','<br>','
+              Never gonna run around and desert you','<br>','
+              Never gonna make you cry','<br>','
+              Never gonna say goodbye','<br>','
+              Never gonna tell a lie and hurt you','<br>','
+              Never gonna give you up','<br>','
+              Never gonna let you down','<br>','
+              Never gonna run around and desert you','<br>','
+              Never gonna make you cry','<br>','
+              Never gonna say goodbye','<br>','
+              Never gonna tell a lie and hurt you','<br>','
+              Never gonna give you up','<br>','
+              Never gonna let you down','<br>','
+              Never gonna run around and desert you','<br>','
+              Never gonna make you cry')} else {
+                paste('You know what would be cool, if my birthday could be used as input...','<br>','Even cooler if its in all the 5 scenarios...') 
+      }
+    })
     }
   shinyApp(ui = ui, server = server) #start app
-  }
+    }

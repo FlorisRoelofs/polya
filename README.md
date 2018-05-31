@@ -14,7 +14,7 @@ library(nlme)
 
 library(Polya)
 
-- To directly run the simulation type and run: polya()
+- To run the simulation type and run: polya()
 
 ############################### EXTRA PACKAGES NEEDED ###################################
 

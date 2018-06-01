@@ -383,9 +383,9 @@ polya = function(){
     
     ###################### Output 1 ######################
     
-    output$plot1 = renderPlot({                                                      # Plot the return value, the dataframe
-      if (input$urn_size == 11 & input$n_picks == 8 & input$n_experiments == 92){   # statements for the easter egg
-        candle = function(pos)                                                   # create the candles
+    output$plot1 = renderPlot({                                                       # Plot the return value, the dataframe
+      if (input$urn_size == 11 & input$n_picks == 8 & input$n_experiments == 92){     # statements for the easter egg
+        candle = function(pos)                                                        # create the candles
         {
           x=pos[1]                                                                    # positions of the flames
           y=pos[2]                                                                    
@@ -591,7 +591,7 @@ polya = function(){
     ###################### Output 7 ######################
     
     output$summary7 = renderText({                       # Some nice rickrollin' text and long statements for the easter egg if all 5 scenarios are correct
-      if (input$urn_size == 11 & input$n_picks == 8 & input$n_experiments == 92 & input$urn_size2 == 11 & input$n_picks2 == 8 & input$n_experiments2 == 92 & input$urn_size3 == 11 & input$n_picks3 == 8 & input$n_experiments3 == 92 & input$urn_size4 == 11 & input$n_picks4 == 8 & input$n_experiments4 == 92 & input$urn_size5 == 11 & input$n_picks5 == 8 & input$n_experiments5 == 92){
+      if (input$urn_size & input$urn_size2 &input$urn_size3 &input$urn_size4 & input$urn_size5 == 11 & input$n_picks & input$n_picks2 & input$n_picks3 & input$n_picks4 & input$n_picks5 == 8 & input$n_experiments & input$n_experiments2 & input$n_experiments3 & input$n_experiments4 & input$n_experiments5 == 92){
         paste('Were no strangers to love','<br>','
               You know the rules and so do I','<br>','
               A full commitments what Im thinking of','<br>','
@@ -648,7 +648,7 @@ polya = function(){
               Never gonna let you down','<br>','
               Never gonna run around and desert you','<br>','
               Never gonna make you cry')} else {
-                paste('This ending could be better...') 
+                paste('This ending could be better...')        # Standard ending text
       }
     })
     }

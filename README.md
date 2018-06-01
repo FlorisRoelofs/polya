@@ -44,7 +44,9 @@ In this application we are trying to simulate a model known as the Polya urn mod
 
 This model has many applications. Here, the balls represent previous memories and how they influence learning behaviour. For instance, imagine learning to play the piano. When you start learning a song, you might have two failing attempts then you take a lesson and you learn how to play your song for the first time. Now you have a total of three memories of playing the song; two incorrect experiences and one correct. In our model the balls represent these experiences in the form of memory traces. All the blue balls represent correct previous experiences and the red balls incorrect ones. Now you want to play this song for the fourth time, to do this correctly you have to sample from your earlier experiences and hope retrieve the experience when you correctly played the song (grab a blue ball). 
 
-Based on this simple learning scheme, how does your skill develop? On the long term, will you be able to learn to play the song and, what factors will influence this development. That is exactly what we will try to figure out with this simulation.
+Based on this simple learning scheme, how does your skill develop? On the long term, will you be able to learn to play the song and what factors will influence this development. That is exactly what we will try to figure out with this simulation.
+
+During the simulation multiple scenarios will be shown with each small variations on the standard model. These scenarios will be explained during the simulation.
 
 ################################# FUNCTIONS ##########################################
 

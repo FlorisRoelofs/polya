@@ -85,8 +85,3 @@ One shortcoming is inside the testing tab, when the user is asked to press the g
 ################################## BUGS ##############################################
 
 One bug users might run into, is that a density plot can't be generated if 'Amount of experiments' is set to 1. If 'Amount of experiments' will be set higher this problem will dissolve itself.
-
-############################### EASTEREGG ############################################
-
-If the user knows my birthday and puts the day, month and year (without the 19..) in the 'Starting Urn Size', 'Amount of Picks' and 'Amount of Experiments' respectively, a nice plot will show up.
-An even nicer text will show up if you put these dates in all 5 scenarios...
